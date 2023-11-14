@@ -1,0 +1,6 @@
+// Databse
+docker run -d --rm --name docker-mongodb -v data:/data/db --network docker-net -e MONGO_INITDB_ROOT_USERNAME=mtarique -e MONGO_INITDB_ROOT_PASSWORD=mt7DB mongo
+// Backend
+docker run --name goals-app-backend-v2 -p 80:80 -d --rm --network docker-net -v "/Users/tarique/node-projects/goals-app/backend:/app" -v goals-app-storage:/app/logs -v /app/node_modules mtarique/goals-app-backend:v2
+// Frontend
+docker run --name goals-app-frontend-v2 -it -p 3000:3000 --rm -v "/Users/tarique/node-projects/goals-app/frontend/src:/app/src" --network docker-net mtarique/goals-app-frontend:v2

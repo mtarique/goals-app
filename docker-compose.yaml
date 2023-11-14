@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  database:
+    image: "mongo"
+    volumes: 
+      - data:/data/db
+    env_file: 
+      - ./env/database.env
+  backend:
+    build: ./backend
+    image: mtarique/goals-app-backend:v3
+    ports: 
+      - '80:80'
+    volumes: 
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - database
+  frontend:
+    build: ./frontend
+    image: mtarique/goals-app-frontend:v3
+    ports: 
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  data:
+  logs:
