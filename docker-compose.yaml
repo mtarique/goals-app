@@ -8,7 +8,8 @@ services:
       - ./env/database.env
   backend:
     build: ./backend
-    image: mtarique/goals-app-backend:v3
+    image: mtarique/goals-app-backend:v4
+    platform: linux/amd64
     ports: 
       - '80:80'
     volumes: 
@@ -21,11 +22,14 @@ services:
       - database
   frontend:
     build: ./frontend
-    image: mtarique/goals-app-frontend:v3
+    image: mtarique/goals-app-frontend:v4
+    platform: linux/amd64
     ports: 
       - '3000:3000'
     volumes:
       - ./frontend/src:/app/src
+    env_file: 
+      - ./env/frontend.env
     stdin_open: true
     tty: true
     depends_on:
